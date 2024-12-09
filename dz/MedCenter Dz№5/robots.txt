@@ -1,0 +1,8 @@
+#Правила прописанные ниже  будут применятся ко всем роботам
+User-agent: *
+#Запрет на индексацию
+Disallow: /private/ /*?* /*% /index.php /*?page= /*&page=
+#Разрешение на индексацию
+Allow: /img/ 
+#Карта сайта
+Sitemap: http://localhost/dz/MedCenter%20Dz№5/sitemap.xml
