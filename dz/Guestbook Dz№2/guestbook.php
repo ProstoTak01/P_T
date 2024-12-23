@@ -2,10 +2,10 @@
 // Функция для добавления сообщения
 function add_message($name, $email, $message) {
     // Получаем текущую дату и время
-    $timestamp = date('Y-m-d H:i:s');
+    $timestamp = date("Y-m-d H:i:s");
     
     // Заменяем переносы строки на HTML-тэги
-    $message = nl2br($message);
+    $message = str_replace(PHP_EOL, '<br>',$message);
     
     // Форматируем сообщение
     $formatted_message = "$name;$email;$timestamp;$message\n";
@@ -45,7 +45,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "Все поля обязательны для заполнения!<br><br>";
     }
 }
-?>
+if (! empty ( $_POST )){
+    header ("Location: {$_SERVER ['PHP_SELF' ]}");
+    exit;
+    }
+    ?>
 
 <!DOCTYPE html>
 <html lang="ru">
@@ -68,6 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <textarea id="message" name="message" rows="4" required></textarea><br><br>
         
         <input type="submit" value="Добавить сообщение">
+
     </form>
 
     <h2>Сообщения:</h2>
