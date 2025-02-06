@@ -1,28 +1,26 @@
 <?php
-session_start();
+session_start(); // Запускает сессию, позволяя сохранять данные между запросами пользователя.
 
+$daysDifference = ''; // Инициализирует переменную для хранения разницы в днях между двумя датами.
+$minutesDifference = ''; // Инициализирует переменную для хранения разницы в минутах между двумя датами.
 
-// Инициализация переменных
-$daysDifference = '';
-$minutesDifference = '';
+if ($_SERVER["REQUEST_METHOD"] == "POST") { // Проверяет, была ли форма отправлена методом POST.
+    $date1 = $_POST['date1']; // Получает значение первой даты из формы и сохраняет его в переменной $date1.
+    $date2 = $_POST['date2']; // Получает значение второй даты из формы и сохраняет его в переменной $date2.
 
-// Проверяем, была ли отправлена форма
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Получаем даты из формы
-    $date1 = $_POST['date1'];
-    $date2 = $_POST['date2'];
+    $datetime1 = new DateTime($date1); // Преобразует строку с первой датой в объект DateTime для удобного управления датами.
+    $datetime2 = new DateTime($date2); // Преобразует строку со второй датой в объект DateTime.
 
-    // Преобразуем строки в объекты DateTime
-    $datetime1 = new DateTime($date1);
-    $datetime2 = new DateTime($date2);
+    $interval = $datetime1->diff($datetime2); // Вычисляет разницу между двумя объектами DateTime и возвращает объект DateInterval.
 
-    // Вычисляем разницу
-    $interval = $datetime1->diff($datetime2);
-    $daysDifference = $interval->days;
-    $minutesDifference = $daysDifference * 24 * 60; // Переводим дни в минуты
+    $daysDifference = $interval->days; // Извлекает количество полных дней из объекта DateInterval и сохраняет в переменной $daysDifference.
+
+    $minutesDifference = $daysDifference * 24 * 60; // Переводит разницу в днях в минуты, умножая на 24 (часы в сутках) и на 60 (минуты в часе).
+
+    $_SESSION["date1"] = $_POST["date1"]; // Сохраняет первую дату в сессии для дальнейшего использования.
+    $_SESSION["date2"] = $_POST["date2"]; // Сохраняет вторую дату в сессии для дальнейшего использования.
 }
-$_SESSION["date1"] = $_POST["date1"];
-$_SESSION["date2"] = $_POST["date2"];
+
 ?>
 
 <!DOCTYPE html>
