@@ -1,21 +1,23 @@
 <?php
-$directory = 'C:\MAMP\htdocs\dz\Dz№7\img'; 
-$allowed_extensions = ['jpg']; 
-$max_file_size = 300 * 1024; 
+$directory = 'C:MAMPhtdocsdzDz№7img'; // Директория для загрузки файлов
+$allowed_extensions = ['jpg']; // Допустимые расширения файлов
+$max_file_size = 300 * 1024; // Максимальный размер файла (300 Кб)
 
-
+// Проверка, был ли отправлен POST-запрос с файлом
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['fileToUpload'])) {
-    $file = $_FILES['fileToUpload'];
-    $file_name = basename($file['name']);
-    $file_extension = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+    $file = $_FILES['fileToUpload']; // Получаем информацию о загружаемом файле
+    $file_name = basename($file['name']); // Извлекаем имя файла
+    $file_extension = strtolower(pathinfo($file_name, PATHINFO_EXTENSION)); // Получаем расширение файла
     
-    
+    // Проверка на допустимое расширение
     if (!in_array($file_extension, $allowed_extensions)) {
         echo "Ошибка: только файлы JPG разрешены.";
-    } elseif ($file['size'] > $max_file_size) {
+    } 
+    // Проверка на максимальный размер файла
+    elseif ($file['size'] > $max_file_size) {
         echo "Ошибка: размер файла не должен превышать 300 Кб.";
     } else {
-        
+        // Перемещение загруженного файла в указанную директорию
         if (move_uploaded_file($file['tmp_name'], "$directory/$file_name")) {
             echo "Файл загружен успешно.";
         } else {
@@ -24,32 +26,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['fileToUpload'])) {
     }
 }
 
-
+// Обработка запроса на удаление файла
 if (isset($_GET['delete'])) {
-    $file_to_delete = $_GET['delete'];
+    $file_to_delete = $_GET['delete']; // Получаем имя файла для удаления
+    // Проверка существования файла
     if (file_exists("$directory/$file_to_delete")) {
-        unlink("$directory/$file_to_delete");
+        unlink("$directory/$file_to_delete"); // Удаление файла
         echo "Файл $file_to_delete удален.";
     } else {
         echo "Файл не найден.";
     }
 }
 
-
+// Обработка запроса на переименование файла
 if (isset($_POST['rename']) && isset($_POST['old_name']) && isset($_POST['new_name'])) {
-    $old_name = $_POST['old_name'];
-    $new_name = $_POST['new_name'];
+    $old_name = $_POST['old_name']; // Получаем старое имя файла
+    $new_name = $_POST['new_name']; // Получаем новое имя файла
 
+    // Проверка существования файла с старым именем
     if (file_exists("$directory/$old_name")) {
-        rename("$directory/$old_name", "$directory/$new_name");
+        rename("$directory/$old_name", "$directory/$new_name"); // Переименование файла
         echo "Файл переименован в $new_name.";
     } else {
         echo "Файл не найден.";
     }
 }
 
-
-$files = array_diff(scandir($directory), array('..', '.')); 
+// Получение списка файлов в директории, исключая '.' и '..'
+$files = array_diff(scandir($directory), array('..', '.'));
 
 ?>
 
@@ -77,8 +81,8 @@ $files = array_diff(scandir($directory), array('..', '.'));
             <th>Имя файла</th>
             <th>Действия</th>
         </tr>
-        <?php foreach ($files as $file): ?>
-        <?php if (is_file("$directory/$file")): ?>
+        <?php foreach ($files as $file): ?>// Конструкция для перебора массива $files.
+        <?php if (is_file("$directory/$file")): ?>//Проверка является ли указанный путь файлом.
         <tr>
             <td><?php echo htmlspecialchars($file); ?></td>
             <td>
@@ -91,8 +95,8 @@ $files = array_diff(scandir($directory), array('..', '.'));
                     onclick="return confirm('Вы уверены, что хотите удалить файл?');">Удалить</a>
             </td>
         </tr>
-        <?php endif; ?>
-        <?php endforeach; ?>
+        <?php endif; ?>//Конструкция для завершения условного блока.
+        <?php endforeach; ?>//Конструкция для завершения цикла foreach.
     </table>
 </body>
 
