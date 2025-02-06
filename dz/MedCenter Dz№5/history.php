@@ -24,12 +24,12 @@
             </div>
         </nav>
     </header>
-<?php include 'header.php'; ?>
+<?php include 'header.php'; ?>//Конструкция для включения и выполнения кода из другого файла.
 <div class="container mt-4">
     <h2>История нашего центра</h2>
     <p>Наш центр был основан в 2000 году и с тех пор помогает тысячам пациентов.</p>
 </div>
-<?php include 'footer.php'; ?>
+<?php include 'footer.php'; ?>//Конструкция для включения и выполнения кода из другого файла.
 
 </body>
 </html>
