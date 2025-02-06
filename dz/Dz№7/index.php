@@ -81,8 +81,8 @@ $files = array_diff(scandir($directory), array('..', '.'));
             <th>Имя файла</th>
             <th>Действия</th>
         </tr>
-        <?php foreach ($files as $file): ?> // Конструкция для перебора массива $files.
-        <?php if (is_file("$directory/$file")): ?> //Проверка является ли указанный путь файлом.
+        <?php foreach ($files as $file): ?> // Конструкция для перебора массива $files
+        <?php if (is_file("$directory/$file")): ?> // Проверка является ли указанный путь файлом
         <tr>
             <td><?php echo htmlspecialchars($file); ?></td>
             <td>
@@ -95,8 +95,8 @@ $files = array_diff(scandir($directory), array('..', '.'));
                     onclick="return confirm('Вы уверены, что хотите удалить файл?');">Удалить</a>
             </td>
         </tr>
-        <?php endif; ?> //Конструкция для завершения условного блока.
-        <?php endforeach; ?> //Конструкция для завершения цикла foreach.
+        <?php endif; ?> // Конструкция для завершения условного блока
+        <?php endforeach; ?> // Конструкция для завершения цикла foreach
     </table>
 </body>
 
