@@ -24,13 +24,13 @@
             </div>
         </nav>
     </header>
-    <?php include 'header.php'; ?>
+    <?php include 'header.php'; ?> //Конструкция для включения и выполнения кода из другого файла.
 <div class="container mt-4">
     <h2>О нас</h2>
     <p>Наш лечебный центр предоставляет широкий спектр услуг для пациентов с проблемами опорно-двигательного аппарата.</p>
     <img src="img/1.jpg" alt="История центра" class="img-fluid">
 </div>
-<?php include 'footer.php'; ?>
+<?php include 'footer.php'; ?>//Конструкция для включения и выполнения кода из другого файла.
 
 </body>
 </html>
